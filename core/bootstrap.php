@@ -7,7 +7,8 @@ ini_set('display_errors', 1);
 require_once __DIR__ . '/../db/DBPDO.php';
 
 require_once __DIR__ . '/../db/DbFactory.php';
-
+require_once __DIR__ . '/../app/controllers/BaseController.php';
+require_once __DIR__ . '/../app/controllers/LoginController.php';
 require_once __DIR__ . '/../app/controllers/PostController.php';
 
 require_once __DIR__ . '/../app/models/Post.php';
