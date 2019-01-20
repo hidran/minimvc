@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/FREEBLOG.iml" filepath="$PROJECT_DIR$/.idea/FREEBLOG.iml" />
+      <module fileurl="file://C:/xampp72/htdocs/UMS/.idea/PROJECT-PHP-MYSQL.iml" filepath="C:/xampp72/htdocs/UMS/.idea/PROJECT-PHP-MYSQL.iml" />
     </modules>
   </component>
 </project>
