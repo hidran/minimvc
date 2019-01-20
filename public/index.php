@@ -1,29 +1,31 @@
 <?php
 chdir(dirname(__DIR__));
-require_once __DIR__.'/../core/bootstrap.php';
+  require_once __DIR__.'/../core/bootstrap.php';
 
 $data = require 'config/database.php';
 
 $appConfig = require 'config/app.config.php';
 
-try{
 
-$conn = App\db\DbFactory::create($data)->getConn();
+try {
+    
+$conn = App\DB\DbFactory::create($data)->getConn();
 
-$router = new Router($conn);
+
+$router  = new Router($conn);
 
 $router->loadRoutes($appConfig['routes']);
 
-$controller = $router->dispatch();
 
-$controller->display();
-
-} catch(\PDOException $e){
+   
+    
+   $controller = $router->dispatch();
+   
+   $controller->display();
+   
+} catch (\PDOException $e) {
     echo $e->getMessage();
+} catch (\Exception $e){
+       echo $e->getMessage();
 }
-/*
- die();
-
-$controller->show(1);
-$controller->display();
- */
+ 

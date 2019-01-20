@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mariadb">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="freeblog">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="assopro"/>
+    <schema id="4" parent="1" name="blog"/>
+    <schema id="5" parent="1" name="bloggingsystem"/>
+    <schema id="6" parent="1" name="corsophp"/>
+    <schema id="7" parent="1" name="hnreader"/>
+    <schema id="8" parent="1" name="homestead"/>
+    <schema id="9" parent="1" name="information_schema"/>
+    <schema id="10" parent="1" name="laraveltest"/>
+    <schema id="11" parent="1" name="lvlboilerplate"/>
+    <schema id="12" parent="1" name="mirova"/>
+    <schema id="13" parent="1" name="mysql"/>
+    <schema id="14" parent="1" name="performance_schema"/>
+    <schema id="15" parent="1" name="php7test"/>
+    <schema id="16" parent="1" name="phpmyadmin"/>
+    <schema id="17" parent="1" name="sakila"/>
+    <schema id="18" parent="1" name="solr"/>
+    <schema id="19" parent="1" name="test"/>
+    <schema id="20" parent="1" name="test1"/>
+    <schema id="21" parent="1" name="test2"/>
+    <schema id="22" parent="1" name="udemycourse"/>
+    <schema id="23" parent="1" name="wordpress"/>
+    <table id="24" parent="2" name="posts"/>
+    <table id="25" parent="2" name="postscomments"/>
+    <column id="26" parent="24" name="id">
+      <Position>1</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="27" parent="24" name="title">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="24" name="message">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="24" name="datecreated">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="24" name="email">
+      <Position>5</Position>
+      <DataType>varchar(128)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="25" name="id">
+      <Position>1</Position>
+      <DataType>int(12)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="32" parent="25" name="post_id">
+      <Position>2</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="25" name="comment">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="25" name="datecreated">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="25" name="email">
+      <Position>5</Position>
+      <DataType>varchar(128)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+  </database-model>
+</dataSource>
