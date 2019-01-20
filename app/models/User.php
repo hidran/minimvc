@@ -7,13 +7,13 @@
  */
 
 namespace App\Models;
-
+use PDO;
 
 class User
 {
   protected  $conn;
 
-    public function __construct(\PDO $conn) {
+    public function __construct(PDO $conn) {
         $this->conn = $conn;
     }
 
@@ -45,27 +45,32 @@ class User
         }
         return  $result;
     }
-    function getUserByEmail(string $email){
+    public function getUserByEmail(string $email){
 
         /**
          * @var $conn mysqli
          */
-        $conn = $GLOBALS['mysqli'];
+
         $result = [];
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
         if(!$email){
             $result;
         }
-        $email = mysqli_escape_string($conn , $email);
 
-        $sql = "SELECT *  FROM users WHERE email ='$email' ";
-        // echo $sql;
 
-        $res = $conn->query($sql);
-        if($res && $res->num_rows) {
-            $result = $res->fetch_assoc();
+        $sql = 'SELECT *  FROM users WHERE email = :email';
+        echo $sql.$email;
+
+        $stm = $this->conn->prepare($sql);
+
+        $stm->execute(['email' => $email]);
+
+        if($stm){
+
+            $result = $stm->fetch(PDO::FETCH_OBJ);
+
         }
-        return  $result;
+        return $result;
     }
     function storeUser(array $data, int $id){
 

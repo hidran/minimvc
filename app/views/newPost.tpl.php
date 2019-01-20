@@ -6,12 +6,7 @@
 
 <form action="/post/save" method="POST">
     
-    <div class="form-group">
-        
-        <label for="email">Email</label>
-        <input class="form-control" name="email" type="email"  name="email" i="email" required>
-           
-    </div>
+
       <div class="form-group">
         
         <label for="title">Title</label>

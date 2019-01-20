@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 20, 2019 alle 21:31
+-- Creato il: Gen 20, 2019 alle 23:08
 -- Versione del server: 5.7.19
 -- Versione PHP: 7.2.12
 
@@ -33,9 +33,15 @@ CREATE TABLE `posts` (
   `user_id` int(12) UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` text COLLATE utf8_unicode_ci NOT NULL,
-  `datecreated` datetime NOT NULL,
-  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL
+  `datecreated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `posts`
+--
+
+INSERT INTO `posts` (`id`, `user_id`, `title`, `message`, `datecreated`) VALUES
+(3, 1, 'This is my first post', 'xcxzcxzczxc', '2019-01-20 22:05:21');
 
 -- --------------------------------------------------------
 
@@ -68,6 +74,13 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `roletype` enum('admin','editor','user') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `fiscalcode`, `age`, `avatar`, `password`, `roletype`) VALUES
+(1, 'hidran', 'hidran@gmail.com', 'RSAHRN55M22QS403', 46, NULL, '$2y$10$sFfXY//g6dSss9m0b2Vem.U6t.1EyBKg1lggJFsqEJ2v1ze.J3c6S', 'user');
 
 --
 -- Indici per le tabelle scaricate
@@ -106,19 +119,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `postscomments`
 --
 ALTER TABLE `postscomments`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(12) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(12) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Limiti per le tabelle scaricate

@@ -10,7 +10,9 @@ class Post {
     public function all()
     {
         $result = [];
-        $stm = $this->conn->query('select * from posts ORDER BY datecreated DESC');
+        $sql = 'select * from posts as p  INNER JOIN users as u';
+        $sql .= ' ON u.id=p.user_id ORDER BY p.datecreated DESC';
+        $stm = $this->conn->query($sql);
        
        
         if($stm && $stm->rowCount()){
@@ -42,13 +44,14 @@ class Post {
     
     public function save(array $data = [])
     {
-        $sql = 'INSERT INTO POSTS (email, title, message,datecreated)';
-        $sql .= 'values (:email, :title, :message,:datecreated)';
+        $sql = 'INSERT INTO POSTS (user_id, title, message,datecreated)';
+        $sql .= 'values (:user_id, :title, :message,:datecreated)';
         
         $stm = $this->conn->prepare($sql);
         
         $stm->execute([
-            'email' => $data['email'],
+            'user_id' => $data['user_id'],
+
             'message'=>  $data['message'],
              'title'=>  $data['title'],
              'datecreated' =>date('Y-m-d H:i:s')

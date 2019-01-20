@@ -14,3 +14,33 @@ function redirect($url ='/'){
     header('Location:'.$url);
     exit;
 }
+
+
+function isUserLoggedin(){
+    return $_SESSION['loggedin'] ?? false;
+}
+
+function getUserLoggedInFullname(){
+    return $_SESSION['userData']['username'] ?? '';
+}
+function getUserRole(){
+    return $_SESSION['userData']['roletype'] ?? '';
+}
+function getUserEmail(){
+    return $_SESSION['userData']['email'] ?? '';
+}
+function isUserAdmin(){
+    return getUserRole() === 'admin';
+}
+function userCanUpdate(){
+    $role = getUserRole();
+    return  $role === 'admin' || $role === 'editor';
+}
+function userCanDelete(){
+
+    return  isUserAdmin();
+}
+function getUserId(){
+
+    return $_SESSION['userData']['id'] ?? '';
+}

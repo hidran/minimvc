@@ -21,7 +21,12 @@ class PostController extends  BaseController {
        
     }
   
-
+    private function redirectIfNotLoggedIn()
+    {
+        if(!isUserLoggedin()){
+            redirect('/auth/login');
+        }
+    }
         public function display()
     {
         require  $this->layout; 
@@ -48,27 +53,31 @@ class PostController extends  BaseController {
     }
       public function edit( $postid )
     {
-        
+        $this->redirectIfNotLoggedIn();
            $post = $this->Post->find($postid);
          
           $this->content =   view('editPost', compact('post'));
      
     }
     public function create(){
+        $this->redirectIfNotLoggedIn();
         $this->content = view('newPost');
     }
     
     
   public function save(){
-     
-      
-            $this->Post->save($_POST);
+
+      $this->redirectIfNotLoggedIn();
+            $data = $_POST;
+            $data['user_id'] = getUserId();
+            $this->Post->save($data);
            
             redirect('/');
     
         
     }
    public function store(string $id){
+       $this->redirectIfNotLoggedIn();
          try {
         
            $result = $this->Post->store($_POST);
@@ -81,6 +90,7 @@ class PostController extends  BaseController {
         
    }
   public function delete( $id){
+      $this->redirectIfNotLoggedIn();
          try {
         
            $result = $this->Post->delete((int)$id);
@@ -94,6 +104,7 @@ class PostController extends  BaseController {
    }
    public function saveComment($postid)
    {
+       $this->redirectIfNotLoggedIn();
          $comment = new Comment($this->conn);
          $_POST['post_id'] = (int) $postid;
          $comment->save($_POST);

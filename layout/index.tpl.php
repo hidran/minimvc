@@ -13,7 +13,7 @@
 
   <body>
 
-    <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a class="navbar-brand" href="/">COMMENTING SYSTEM</a>
       <ul class="nav navbar-nav">
         <li class="nav-item active">
@@ -22,10 +22,48 @@
         <li class="nav-item">
           <a class="nav-link" href="/posts">POSTS</a>
         </li>
+          <?php if(isUserLoggedin()) : ?>
         <li class="nav-item">
           <a class="nav-link" href="/post/create">NEW POST</a>
         </li>
+          <?php endif;?>
       </ul>
+        <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+            <?php
+            if(isUserLoggedin()) :
+                ?>
+                <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings">
+                        <i class="fa fa-cog fa-fw fa-lg"></i></a></li>
+
+
+
+
+                        <li class="nav-link">
+                            <h5> Welcome <?=getUserLoggedInFullname()?></h5>
+
+                        </li>
+                <li class="m-1">&nbsp;</li>
+
+                        <li class="nav-item">
+                            <form class="form" role="form" method="post" action="/auth/logout">
+                                <input type="hidden" name="action" value="logout">
+                                <button  class="btn btn-link">LOGOUT</button>
+                            </form>
+                        </li>
+
+                </li>
+            <?php
+            else: ?>
+                <li class="nav-link">
+
+                    <a href="/auth/login" class="btn btn-lg btn-success">LOGIN</a>
+
+                </li>
+            <?php
+            endif;
+
+            ?>
+        </ul>
     </nav>
 
     <div class="container">
