@@ -8,12 +8,7 @@
 
 <form action="/post/<?=$post->id?>/store" method="POST">
     <input type="hidden" name="id" value="<?=$post->id?>">
-    <div class="form-group">
-        
-        <label for="email">Email</label>
-        <input class="form-control" name="email" type="email" value="<?=$post->email?>" name="email" i="email" required>
-           
-    </div>
+
       <div class="form-group">
         
         <label for="title">Title</label>

@@ -4,6 +4,7 @@
     <div class="col-md-6 push-md-3">
 
         <?php
+
          if(!empty($_SESSION['message'])) :?>
          <div class="alert alert-danger">
              <?php
@@ -16,7 +17,7 @@
         ?>
         <h1><?=$signup?'Sign up':'Sign in'?> </h1>
 
-        <form action="<?=$signup?'/auth/signup':'/auth/login'?>" method="POST">
+        <form action="<?=$signup?'/auth/signup':'/auth/login'?>" method="POST" id="loginform">
         <input type="hidden" name="_csrf" value="<?=$token?>"/>
             <?php if($signup) :?>
                 <div class="form-group">
@@ -49,3 +50,36 @@
         </form>
     </div>
 </div>
+<script>
+
+    $(
+        function (){
+            $('#loginform').on('submit', function (evt) {
+                evt.preventDefault();
+                const  data = $(this).serialize();
+                $.ajax({
+                    method:'post',
+                    data : data,
+                    url :  $(this).attr('action'),
+
+                    success : function (response) {
+
+                        const data = JSON.parse(response);
+                        if(data){
+                            alert(data.message);
+                            if(data.success){
+
+                                location.href = '/';
+
+                            }
+                        }
+
+                    },
+                    failure : function () {
+                        alert('PROBLEM CONTACTING SERVER')
+                    },
+                })
+            })
+        }
+    );
+</script>

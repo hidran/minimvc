@@ -40,18 +40,29 @@ class LoginController extends BaseController
         $email  = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
         $result = $this->verifyLogin($email, $password, $token);
+
+        $header = strtoupper($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '');
         if($result['success']){
+
             session_regenerate_id();
             $_SESSION['loggedin'] = true;
             unset($result['user']['password']);
             $_SESSION['userData']  = $result['user'];
-            redirect('/');
+
 
 
         } else {
             $_SESSION['message'] = $result['message'];
-            redirect('/auth/login');
+
         }
+        if($header === 'XMLHTTPREQUEST'){
+            ob_end_clean();
+            echo json_encode($result);
+            exit;
+        } else {
+            $result['success'] ?    redirect('/') :   redirect('/auth/login');
+        }
+
     }
     public function signup()
     {
@@ -61,6 +72,8 @@ class LoginController extends BaseController
         $username = $_POST['username'] ?? '';
         $result = $this->verifySignup($email, $password, $token);
 
+        $header = strtoupper($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '');
+
         if($result['success']){
 
             $user = new User($this->conn);
@@ -69,24 +82,30 @@ class LoginController extends BaseController
             $data['username']  = $email;
             $data['password']  =password_hash($password, PASSWORD_DEFAULT);
 
-            $resultSave = $user->saveUser($data);
-            if($resultSave['success']) {
-                $data['id'] = $resultSave['id'];
+            $result = $user->saveUser($data);
+            //dd($resultSave);
+            if($result['success']) {
+                $data['id'] = $result['id'];
                 session_regenerate_id();
 
                 $_SESSION['loggedin'] = true;
                 unset($data['password']);
                 $_SESSION['userData'] = $data;
-                redirect('/');
-            } else {
-                $_SESSION['message'] = $resultSave['message'];
-                redirect('/auth/showSignup');
+
             }
 
 
+        }
+
+        if($header === 'XMLHTTPREQUEST'){
+            ob_end_clean();
+            echo json_encode($result);
+            exit;
         } else {
-            $_SESSION['message'] = $result['message'];
-            redirect('/auth/login');
+           if( !$result['success']){
+               $_SESSION['message'] = $resultSave['message'];
+           }
+            $result['success']? redirect('/') :   redirect('/auth/signup');
         }
     }
     private   function verifySignup($email, $password, $token){
@@ -150,7 +169,8 @@ class LoginController extends BaseController
         if($token !== $_SESSION['csrf']){
             $result = [
                 'message' => 'TOKEN MISMATCH',
-                'success' => false
+                'success' => false,
+                'token' => $token .'!== '.$_SESSION['csrf'].','.session_id()
 
             ];
             return $result;

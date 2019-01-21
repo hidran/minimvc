@@ -79,7 +79,11 @@ class PostController extends  BaseController {
    public function store(string $id){
        $this->redirectIfNotLoggedIn();
          try {
-        
+             $post = $this->Post->find($_POST['id']);
+             if($post->user_id != getUserId()){
+                 $_SESSION = [];
+                 redirect('/auth/login');
+             }
            $result = $this->Post->store($_POST);
            redirect('/');
            

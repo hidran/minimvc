@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/style.css">
+      <script src="/js/jquery.js" ></script>
   </head>
 
   <body>
@@ -70,7 +71,7 @@
    <?=$this->content?>
     </div>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="/js/jquery.js" ></script>
+
       <script src="/js/tether.js" ></script>
      <script src="/js/bootstrap.min.js"></script>
   </body>

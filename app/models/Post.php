@@ -67,7 +67,7 @@ class Post {
           //   
    
     
-        $sql = 'UPDATE POSTS SET email =:email, title =:title, ';
+        $sql = 'UPDATE POSTS SET title =:title, ';
         $sql .=' message =:message';
         $sql .= ' WHERE id = :id';
         
@@ -75,7 +75,6 @@ class Post {
         
         $stm->execute([
             'id' => $data['id'],
-            'email' => $data['email'],
             'message'=>  $data['message'],
              'title'=>  $data['title']
                 ]

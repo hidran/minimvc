@@ -152,7 +152,8 @@ class User
             ]);
             if($res){
                 $result['success']  = 1;
-                $res['id'] = $this->conn->lastInsertId();
+                $result['id'] = $this->conn->lastInsertId();
+                $result['message'] = 'USER CREATED CORRECTLY';
 
             } else {
                 $result['success']  = $this->conn->errorInfo();;
