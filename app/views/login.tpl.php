@@ -3,11 +3,29 @@
 <div class="row">
     <div class="col-md-6 push-md-3">
 
+        <?php
+         if(!empty($_SESSION['message'])) :?>
+         <div class="alert alert-danger">
+             <?php
+             echo htmlentities($_SESSION['message']);
+             $_SESSION['message'] = '';
+             ?>
+         </div>
+        <?php
+        endif;
+        ?>
+        <h1><?=$signup?'Sign up':'Sign in'?> </h1>
 
-        <h1>Sign in </h1>
-
-        <form action="/auth/login" method="POST">
+        <form action="<?=$signup?'/auth/signup':'/auth/login'?>" method="POST">
         <input type="hidden" name="_csrf" value="<?=$token?>"/>
+            <?php if($signup) :?>
+                <div class="form-group">
+
+                    <label for="username">User name</label>
+                    <input class="form-control" name="username" type="text" value="" name="username" i="username">
+
+                </div>
+            <?php endif;?>
             <div class="form-group">
 
                 <label for="email">Email</label>
@@ -25,7 +43,7 @@
 
 
             <div class="form-group text-md-center">
-                <button class="btn  btn-primary">LOGIN</button>
+                <button class="btn  btn-primary"><?=$signup?'SIGN UP ':'SIGN IN'?></button>
             </div>
 
         </form>

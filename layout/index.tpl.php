@@ -55,7 +55,7 @@
             <?php
             else: ?>
                 <li class="nav-link">
-
+                    <a href="/auth/signup" class="btn btn-lg btn-primary">SIGN UP</a>
                     <a href="/auth/login" class="btn btn-lg btn-success">LOGIN</a>
 
                 </li>
