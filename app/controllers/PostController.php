@@ -36,7 +36,7 @@ class PostController extends  BaseController {
     {
       
       $posts = $this->Post->all();
-      
+
     $this->content =  view('posts', compact('posts'));
     }
     
@@ -45,7 +45,7 @@ class PostController extends  BaseController {
        
           
            $post = $this->Post->find($postid);
-           
+
             $comment = new Comment($this->conn);
            $comments =  $comment->all($postid);
           $this->content =   view('post', compact('post','comments'));
@@ -104,10 +104,13 @@ class PostController extends  BaseController {
    }
    public function saveComment($postid)
    {
-       $this->redirectIfNotLoggedIn();
+
          $comment = new Comment($this->conn);
-         $_POST['post_id'] = (int) $postid;
-         $comment->save($_POST);
+         $data = $_POST;
+       $data['post_id']  = (int) $postid;
+       $data['user_id']= (int)getUserId();
+
+         $comment->save($data);
            
             redirect('/post/'.$postid);
    }

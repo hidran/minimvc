@@ -42,5 +42,9 @@ function userCanDelete(){
 }
 function getUserId(){
 
-    return $_SESSION['userData']['id'] ?? '';
+    return $_SESSION['userData']['id'] ?? 0;
+}
+function dd($data){
+    var_dump($data);
+    die;
 }

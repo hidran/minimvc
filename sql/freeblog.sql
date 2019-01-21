@@ -1,33 +1,16 @@
--- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Creato il: Gen 20, 2019 alle 23:08
--- Versione del server: 5.7.19
--- Versione PHP: 7.2.12
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `freeblog`
---
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `posts`
---
-
+CREATE DATABASE IF NOT EXISTS `freeblog` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `freeblog`;
+DROP TABLE IF EXISTS `postscomments`;
+DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `posts` (
   `id` int(10) NOT NULL,
   `user_id` int(12) UNSIGNED NOT NULL,
@@ -36,33 +19,17 @@ CREATE TABLE `posts` (
   `datecreated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dump dei dati per la tabella `posts`
---
 
-INSERT INTO `posts` (`id`, `user_id`, `title`, `message`, `datecreated`) VALUES
-(3, 1, 'This is my first post', 'xcxzcxzczxc', '2019-01-20 22:05:21');
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `postscomments`
---
 
 CREATE TABLE `postscomments` (
   `id` int(12) NOT NULL,
   `post_id` int(10) NOT NULL,
   `comment` text COLLATE utf8_unicode_ci NOT NULL,
   `datecreated` datetime NOT NULL,
-  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_id` int(12) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `users`
---
 
 CREATE TABLE `users` (
   `id` int(12) UNSIGNED NOT NULL,
@@ -75,80 +42,39 @@ CREATE TABLE `users` (
   `roletype` enum('admin','editor','user') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dump dei dati per la tabella `users`
---
 
-INSERT INTO `users` (`id`, `username`, `email`, `fiscalcode`, `age`, `avatar`, `password`, `roletype`) VALUES
-(1, 'hidran', 'hidran@gmail.com', 'RSAHRN55M22QS403', 46, NULL, '$2y$10$sFfXY//g6dSss9m0b2Vem.U6t.1EyBKg1lggJFsqEJ2v1ze.J3c6S', 'user');
-
---
--- Indici per le tabelle scaricate
---
-
---
--- Indici per le tabelle `posts`
---
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_title` (`title`),
   ADD KEY `idx_user_id` (`user_id`);
 
---
--- Indici per le tabelle `postscomments`
---
 ALTER TABLE `postscomments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_post_id` (`post_id`),
   ADD KEY `idx_user_id` (`user_id`);
 
---
--- Indici per le tabelle `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `u_fiscalcode` (`fiscalcode`),
   ADD KEY `i_email` (`email`),
   ADD KEY `i_username` (`username`);
 
---
--- AUTO_INCREMENT per le tabelle scaricate
---
 
---
--- AUTO_INCREMENT per la tabella `posts`
---
 ALTER TABLE `posts`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT per la tabella `postscomments`
---
 ALTER TABLE `postscomments`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- AUTO_INCREMENT per la tabella `users`
---
 ALTER TABLE `users`
   MODIFY `id` int(12) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- Limiti per le tabelle scaricate
---
 
---
--- Limiti per la tabella `posts`
---
 ALTER TABLE `posts`
   ADD CONSTRAINT `f_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Limiti per la tabella `postscomments`
---
 ALTER TABLE `postscomments`
   ADD CONSTRAINT `fk_post_id` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

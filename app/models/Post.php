@@ -10,7 +10,7 @@ class Post {
     public function all()
     {
         $result = [];
-        $sql = 'select * from posts as p  INNER JOIN users as u';
+        $sql = 'select p.* , u.email from posts as p  INNER JOIN users as u';
         $sql .= ' ON u.id=p.user_id ORDER BY p.datecreated DESC';
         $stm = $this->conn->query($sql);
        
@@ -26,10 +26,11 @@ class Post {
         
         $result = [];
         
-         $sql = 'select * from posts where id = :id';
+         $sql = 'select p.* , u.email from posts  as p  INNER JOIN users as u';
+        $sql .= ' ON u.id=p.user_id where p.id = :id';
          
          $stm = $this->conn->prepare($sql);
-         
+
          $stm->execute(['id' => $id]);
         
          if($stm){
